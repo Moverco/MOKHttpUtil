@@ -10,7 +10,7 @@ public class HttpClientDemo {
     public static void executeHttpClient(){
         HttpClientUtil httpClientUtil = new HttpClientUtil();
         httpClientUtil.useHttpGET(HttpUtil.getHttpPage(HttpUtil.GET));
-        httpClientUtil.setPostContent("ip","59,108,54,37");
-        httpClientUtil.useHttpPost("http://ip.taobao.com/service/getIpInfo.php");
+        httpClientUtil.setPostContent("Name","Morton");
+        httpClientUtil.useHttpPost(HttpUtil.getHttpPage(HttpUtil.POST));
     }
 }

@@ -80,6 +80,12 @@ public class HttpClientUtil {
         return mHttpClient;
     }
 
+    /**
+     * To execute a Get method
+     *
+     * @param client
+     * @param url
+     */
     public void useHttpGET(HttpClient client, String url) {
         if (client == null) {
             client = createNewHttpClient();
@@ -100,17 +106,22 @@ public class HttpClientUtil {
 
     }
 
+    /**
+     * To execute a Post method
+     * @param client
+     * @param url
+     */
     public void useHttpPost(HttpClient client, String url) {
         if (client == null) {
             client = createNewHttpClient();
         }
-        HttpPost post = new HttpPost();
-        post.addHeader(CONNECTION, KEEP_ALIVE);
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.addHeader(CONNECTION, KEEP_ALIVE);
         List<NameValuePair> postParams = new ArrayList<>();
         postParams.add(new BasicNameValuePair(post_name, post_value));
         try {
-            post.setEntity(new UrlEncodedFormEntity(postParams));
-            HttpResponse response = client.execute(post);
+            httpPost.setEntity(new UrlEncodedFormEntity(postParams));
+            HttpResponse response = client.execute(httpPost);
             showResponse(response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,6 +132,10 @@ public class HttpClientUtil {
         useHttpPost(createNewHttpClient(), url);
     }
 
+    /**
+     * Log the content of response with inputstream
+     * @param response
+     */
     private void showResponse(HttpResponse response) {
         if (response != null) {
             HttpEntity entity = response.getEntity();
@@ -138,6 +153,11 @@ public class HttpClientUtil {
         }
     }
 
+    /**
+     * Convert inputstream to string
+     * @param stream
+     * @return
+     */
     private String convertInputStreamToString(InputStream stream) {
         if (stream != null) {
             BufferedReader bufferReader = new BufferedReader(new InputStreamReader(stream));
